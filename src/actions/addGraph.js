@@ -1,22 +1,22 @@
-import { axize } from '../utils';
+import { axize } from "../utils";
 
-export const ADD_TRIP_START = 'ADD_TRIP_START';
-export const ADD_TRIP_SUCCESS = 'ADD_TRIP_SUCCESS';
-export const ADD_TRIP_FAILURE = 'ADD_TRIP_FAILURE';
+export const ADD_GRAPH_START = "ADD_GRAPH_START";
+export const ADD_GRAPH_SUCCESS = "ADD_GRAPH_SUCCESS";
+export const ADD_GRAPH_FAILURE = "ADD_GRAPH_FAILURE";
 
-export const addTrip = (history, tripData) => {
-    return dispatch => {
-        dispatch({ type: ADD_TRIP_START });
-        axize()
-            .post('https://tripsplit-backend.herokuapp.com/api/trips', tripData)
-            .then(res => {
-                console.log('The response from posting a trip is', res.data);
-                dispatch({ type: ADD_TRIP_SUCCESS, payload: res.data });
-                history.push('/triplist');
-            })
-            .catch(err => {
-                console.log(err);
-                dispatch({ type: ADD_TRIP_FAILURE, payload: err.response });
-            });
-    };
+export const addGraph = (history, graphData) => {
+  return dispatch => {
+    dispatch({ type: ADD_GRAPH_START });
+    axize()
+      .post("https://spider-back-end.herokuapp.com/api/graph", graphData)
+      .then(res => {
+        console.log("The response from posting a GRAPH is", res.data);
+        dispatch({ type: ADD_GRAPH_SUCCESS, payload: res.data });
+        history.push("/graphlist");
+      })
+      .catch(err => {
+        console.log(err);
+        dispatch({ type: ADD_GRAPH_FAILURE, payload: err.response });
+      });
+  };
 };

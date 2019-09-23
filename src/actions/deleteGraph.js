@@ -1,22 +1,22 @@
-import axios from 'axios';
+import axios from "axios";
 
-export const DELETE_TRIP_START = 'DELETE_TRIP_START';
-export const DELETE_TRIP_SUCCESS = 'DELETE_TRIP_SUCCESS';
-export const DELETE_TRIP_FAILURE = 'DELETE_TRIP_FAILURE';
+export const DELETE_GRAPH_START = "DELETE_GRAPH_START";
+export const DELETE_GRAPH_SUCCESS = "DELETE_GRAPH_SUCCESS";
+export const DELETE_GRAPH_FAILURE = "DELETE_GRAPH_FAILURE";
 
-export const deleteTrip = (history, tripId) => {
-    return dispatch => {
-        dispatch({ type: DELETE_TRIP_START });
-        axios
-            .delete(`https://tripsplit-backend.herokuapp.com/api/trips/${tripId}`)
-            .then(res => {
-                console.log('deleteTrip.js action', res);
-                dispatch({ type: DELETE_TRIP_SUCCESS, payload: tripId });
-                history.push('/triplist');
-            })
-            .catch(err => {
-                console.log(err);
-                dispatch({ type: DELETE_TRIP_FAILURE, payload: err.response });
-            });
-    };
+export const deleteGraph = (history, graphId) => {
+  return dispatch => {
+    dispatch({ type: DELETE_GRAPH_START });
+    axios
+      .delete(`https://spider-back-end.herokuapp.com/api/graph/${graphId}`)
+      .then(res => {
+        console.log("deleteGraph.js action", res);
+        dispatch({ type: DELETE_GRAPH_SUCCESS, payload: graphId });
+        history.push("/graphlist");
+      })
+      .catch(err => {
+        console.log(err);
+        dispatch({ type: DELETE_GRAPH_FAILURE, payload: err.response });
+      });
+  };
 };
