@@ -1,50 +1,71 @@
-import { GET_TRIPS_START, GET_TRIPS_SUCCESS, GET_TRIPS_FAILURE } from '../actions/getTrips';
-import { DELETE_TRIP_START, DELETE_TRIP_SUCCESS, DELETE_TRIP_FAILURE } from '../actions/deleteTrip';
-import { ADD_TRIP_START, ADD_TRIP_SUCCESS, ADD_TRIP_FAILURE } from '../actions/addTrip';
-import { EDIT_TRIP_START, EDIT_TRIP_SUCCESS, EDIT_TRIP_FAILURE } from '../actions/editTrip';
+import {
+  ADD_GRAPH_FAILURE,
+  ADD_GRAPH_START,
+  ADD_GRAPH_SUCCESS
+} from "../actions/addGraph";
+import {
+  DELETE_GRAPH_FAILURE,
+  DELETE_GRAPH_START,
+  DELETE_GRAPH_SUCCESS
+} from "../actions/deleteGraph";
+import {
+  EDIT_GRAPH_FAILURE,
+  EDIT_GRAPH_START,
+  EDIT_GRAPH_SUCCESS
+} from "../actions/editGraph";
 
 const initialState = {
-    isLoading: false,
-    errorMessage: '',
-    allTrips: []
+  isLoading: false,
+  errorMessage: "",
+  allGraph: []
 };
 
-function tripsReducer(state = initialState, action) {
-    switch (action.type) {
-        case GET_TRIPS_START:
-            return { ...state, isLoading: true };
-        case GET_TRIPS_SUCCESS:
-            return { ...state, isLoading: false, allTrips: action.payload };
-        case GET_TRIPS_FAILURE:
-            return { ...state, errorMessage: action.payload };
-        case DELETE_TRIP_START:
-            return { ...state, isLoading: true };
-        case DELETE_TRIP_SUCCESS:
-            return { ...state, isLoading: false, allTrips: state.allTrips.filter(trip => trip.id !== action.payload) };
-        case DELETE_TRIP_FAILURE:
-            return { ...state, errorMessage: action.payload };
-        case ADD_TRIP_START:
-            return { ...state, isLoading: true };
-        case ADD_TRIP_SUCCESS:
-            return { ...state, isLoading: false, allTrips: [...state.allTrips, action.payload] };
-        case ADD_TRIP_FAILURE:
-            return { ...state, errorMessage: action.payload };
-        case EDIT_TRIP_START:
-            return { ...state, isLoading: true };
-        case EDIT_TRIP_SUCCESS:
-            const filteredTrips = state.allTrips.filter(trip => trip.id !== action.payload.tripId);
-            const updatedTrips = [...filteredTrips, action.payload.tripData];
+function graphReducer(state = initialState, action) {
+  switch (action.type) {
+    case GET_GRAPHS_START:
+      return { ...state, isLoading: true };
+    case GET_GRAPHS_SUCCESS:
+      return { ...state, isLoading: false, allGraph: action.payload };
+    case GET_GRAPHS_FAILURE:
+      return { ...state, errorMessage: action.payload };
+    case DELETE_GRAPH_START:
+      return { ...state, isLoading: true };
+    case DELETE_GRAPH_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        allGraph: state.allGraph.filter(graph => graph.id !== action.payload)
+      };
+    case DELETE_GRAPH_FAILURE:
+      return { ...state, errorMessage: action.payload };
+    case ADD_GRAPH_START:
+      return { ...state, isLoading: true };
+    case ADD_GRAPH_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        allGraph: [...state.allGraph, action.payload]
+      };
+    case ADD_GRAPH_FAILURE:
+      return { ...state, errorMessage: action.payload };
+    case EDIT_GRAPH_START:
+      return { ...state, isLoading: true };
+    case EDIT_GRAPH_SUCCESS:
+      const filteredGraph = state.allGraph.filter(
+        graph => graph.id !== action.payload.graphId
+      );
+      const updatedGraph = [...filteredGraph, action.payload.graphData];
 
-            updatedTrips.sort(function(a, b) {
-                return parseFloat(a.id) - parseFloat(b.id);
-            });
+      updatedGraph.sort(function(a, b) {
+        return parseFloat(a.id) - parseFloat(b.id);
+      });
 
-            return { ...state, isLoading: false, allTrips: updatedTrips };
-        case EDIT_TRIP_FAILURE:
-            return { ...state, errorMessage: action.payload };
-        default:
-            return state;
-    }
+      return { ...state, isLoading: false, allGraph: updatedGraph };
+    case EDIT_GRAPH_FAILURE:
+      return { ...state, errorMessage: action.payload };
+    default:
+      return state;
+  }
 }
 
-export default tripsReducer;
+export default graphReducer;
