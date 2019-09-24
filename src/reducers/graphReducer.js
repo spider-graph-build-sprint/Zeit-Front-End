@@ -13,6 +13,11 @@ import {
   EDIT_GRAPH_START,
   EDIT_GRAPH_SUCCESS
 } from "../actions/editGraph";
+import {
+  GET_GRAPH_FAILURE,
+  GET_GRAPH_START,
+  GET_GRAPH_SUCCESS
+} from "../actions/getGraph";
 
 const initialState = {
   isLoading: false,
@@ -22,11 +27,11 @@ const initialState = {
 
 function graphReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_GRAPHS_START:
+    case GET_GRAPH_START:
       return { ...state, isLoading: true };
-    case GET_GRAPHS_SUCCESS:
+    case GET_GRAPH_SUCCESS:
       return { ...state, isLoading: false, allGraph: action.payload };
-    case GET_GRAPHS_FAILURE:
+    case GET_GRAPH_FAILURE:
       return { ...state, errorMessage: action.payload };
     case DELETE_GRAPH_START:
       return { ...state, isLoading: true };
