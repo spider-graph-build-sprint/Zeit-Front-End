@@ -37,6 +37,7 @@ function Graph() {
   // for changing graph type with buttons buttons
   const [graph, setGraph] = useState("");
 
+
   // state is a record of what's in the form itself
   const [state, setState] = useState({ label: "" });
 
@@ -44,6 +45,7 @@ function Graph() {
   const [dataSet, setDataSet] = useState(intiDataset);
 
   // load labels into state
+
   const [labels, setLabels] = useState(intiLabels);
 
   // this is passed into the chart comonent
@@ -62,8 +64,10 @@ function Graph() {
   function handleSubmit(e) {
     e.preventDefault();
 
+
     // the new label get's added to the end of the labels list.
     setLabels([...labels, state.label]);
+
   }
   function handleDataSubmit(e) {
     e.preventDefault();
@@ -100,6 +104,8 @@ function Graph() {
           type="text"
           placeholder="new leg name"
           onChange={handleChanges}
+          name="newLegName"
+          value={state.newLegName}
         />
         <button type="submit"> add leg </button>
       </form>
