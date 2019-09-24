@@ -63,7 +63,7 @@ const intiDataset = [
 ];
 function Graph() {
   const [graph, setGraph] = useState("");
-  const [state, setState] = useState("");
+  const [state, setState] = useState({newLegName: ""});
   const [dataset] = useState(intiDataset);
   const [labels, setLabels] = useState(intiLabels);
 
@@ -76,8 +76,8 @@ function Graph() {
   }
   function handleSubmit(e) {
     e.preventDefault();
-    setLabels([...labels]);
-    console.log(state);
+    setLabels([...labels, state.newLegName]);
+    // console.log(state);
   }
   // ExportChart({ format: "jpg" });
   // Bar, Line, Radar, Polar, ;
@@ -89,6 +89,8 @@ function Graph() {
           type="text"
           placeholder="new leg name"
           onChange={handleChanges}
+          name="newLegName"
+          value={state.newLegName}
         />
         <button type="submit"> add leg </button>
       </form>
