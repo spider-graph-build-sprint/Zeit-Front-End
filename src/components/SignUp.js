@@ -6,7 +6,7 @@ import * as Yup from "yup";
 const SignUp = ({ values, errors, touched, isSubmitting }) => {
   return (
     <Form className="signUp">
-      <div>
+      {/* <div>
         {touched.firstName && errors.firstName && <p>{errors.firstName}</p>}
         <Field type="text" name="firstName" placeholder="Enter first name" />
       </div>
@@ -17,7 +17,7 @@ const SignUp = ({ values, errors, touched, isSubmitting }) => {
       <div>
         {touched.email && errors.email && <p>{errors.email}</p>}
         <Field type="email" name="email" placeholder="Enter email" />
-      </div>
+      </div> */}
       <div>
         {touched.username && errors.username && <p>{errors.username}</p>}
         <Field type="username" name="username" placeholder="Enter username" />
@@ -36,19 +36,16 @@ const SignUp = ({ values, errors, touched, isSubmitting }) => {
 };
 
 const FormikSignUp = withFormik({
-  mapPropsToValues({ firstName, lastName, email, username, password }) {
+  mapPropsToValues({ username, password }) {
     return {
-      email: email || "",
-      firstName: firstName || "",
-      lastName: lastName || "",
+      //   email: email || "",
+      //   firstName: firstName || "",
+      //   lastName: lastName || "",
       username: username || "",
       password: password || ""
     };
   },
   validationSchema: Yup.object().shape({
-    email: Yup.string()
-      .email("Invalid email")
-      .required("Email required"),
     username: Yup.string().required("Please enter your name."),
     password: Yup.string()
       .min(6, "Password must be 6 characters")
@@ -56,9 +53,6 @@ const FormikSignUp = withFormik({
   }),
   handleSubmit(values, { resetForm, setErrors, setSubmitting, props }) {
     const register = {
-      firstName: values.firstName,
-      lastName: values.lastName,
-      email: values.email,
       username: values.username,
       password: values.password
     };
