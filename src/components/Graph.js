@@ -30,12 +30,19 @@ const intiDataset = [
     data: [105162, 181045, 617594, 153060, 806519, 95072],
     // backgroundColor: "rgba(54, 162, 235, 0.6)"
     backgroundColor: dynamicColors()
+  },
+  {
+    label: "Seattle",
+    data: [103214, 192043, 553212, 103030, 919332, 901392],
+    backgroundColor: dynamicColors()
   }
 ];
 
+
+
 function Graph() {
 
-  // for changing graph type with buttons buttons
+  // for changing graph type with buttons
   const [graph, setGraph] = useState("");
 
   // state is a record of what's in the form itself
@@ -47,7 +54,7 @@ function Graph() {
   // load labels into state
   const [labels, setLabels] = useState(intiLabels);
 
-  // this is passed into the chart comonent
+  // this is passed into the chart component
   const data = {
     labels: [...labels],
     datasets: [...dataSet]
@@ -63,7 +70,11 @@ function Graph() {
 
     // the new label get's added to the end of the labels list.
     setLabels([...labels, state.label]);
-   
+    
+    // for (const i=0; i<dataSet.length; i++) {
+    //   const aSet = state.find(element => element === dataSet.label) 
+    // }
+    console.log(state);
   }
 
   // ExportChart({ format: "jpg" });
@@ -80,6 +91,19 @@ function Graph() {
           placeholder="new leg name"
           onChange={handleChanges}
         />
+
+        {dataSet.map((datum)=>{
+          return (
+            <input
+            key={datum.label}
+            name={datum.label}
+            type="text"
+            placeholder={datum.label}
+            onChange={handleChanges}
+          />
+          )
+        })}
+
         <button type="submit"> add leg </button>
       </form>
 
@@ -107,3 +131,11 @@ function Graph() {
   );
 }
 export default Graph;
+
+
+
+
+// dataset.find(element => 
+//   if (element.id === id) {
+//   element.data.push (item in handleSubmit)
+//   }
