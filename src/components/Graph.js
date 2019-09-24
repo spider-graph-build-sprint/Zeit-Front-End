@@ -76,7 +76,9 @@ function Graph() {
   }
   function handleSubmit(e) {
     e.preventDefault();
-    setLabels([...labels, state.newLegName]);
+    state.newLegName = state.newLegName.trim();
+    if(state.newLegName)
+      setLabels([...labels, state.newLegName]);
     // console.log(state);
   }
   // ExportChart({ format: "jpg" });
