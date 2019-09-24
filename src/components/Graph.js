@@ -56,12 +56,20 @@ function Graph() {
   function handleChanges(e) {
     setState({ ...state, [e.target.name]: e.target.value });
   }
-
+  // function handleDataset(e) {
+  //   setState({ ...state, [e.target.name]: e.target.value });
+  // }
   function handleSubmit(e) {
     e.preventDefault();
 
     // the new label get's added to the end of the labels list.
     setLabels([...labels, state.label]);
+  }
+  function handleDataSubmit(e) {
+    e.preventDefault();
+
+    // the new label get's added to the end of the labels list.
+    setDataSet([...dataSet, state.dataSet]);
   }
 
   // ExportChart({ format: "jpg" });
@@ -80,6 +88,21 @@ function Graph() {
         <button type="submit"> add leg </button>
       </form>
 
+      <form onSubmit={handleDataSubmit}>
+        <input
+          name="title"
+          type="text"
+          placeholder="new leg name"
+          onChange={handleChanges}
+        />
+        <input
+          name="dataset"
+          type="text"
+          placeholder="new leg name"
+          onChange={handleChanges}
+        />
+        <button type="submit"> add leg </button>
+      </form>
       <Radar data={data} />
 
       <h2>Other viewing Options</h2>
