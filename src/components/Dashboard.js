@@ -9,7 +9,9 @@ const fakeData = {
 
 const Dashboard = () => {
     return (
-        <GraphCard name={fakeData.name} path={fakeData.path} imgUrl={fakeData.imgUrl}/>
+        <div className="dashboard">
+            <GraphCard name={fakeData.name} path={fakeData.path} imgUrl={fakeData.imgUrl}/>
+        </div>
     );
 }
 

@@ -217,4 +217,18 @@ button:disabled {
 
 .graphCard {
   background-color: red;
+  width: 18%;
+  /* padding: 0.5rem 1rem; */
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+}
+
+.graphCard img {
+  width: 100%;
+}
+
+.dashboard {
+  width: 80%;
+  background-color: blue;
 }
