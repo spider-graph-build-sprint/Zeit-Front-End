@@ -7,6 +7,7 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import NavBar from "./components/NavBar";
 import SignUp from "./components/SignUp";
+import Dashboard from "./components/Dashboard";
 
 function App(props) {
   useEffect(() => {
@@ -22,7 +23,8 @@ function App(props) {
       <NavBar />
       <Switch>
         {/* <Route path="/" component={NavBar} /> */}
-        <Route exact path="/" render={props => <Home />} />
+        <Route exact path="/" render={() => <Home />} />
+        <Route path="/dashboard" render={props => <Dashboard/>}/>
         <Route path="/sign-up" render={props => <SignUp {...props} />} />
         <Route path="/login" render={props => <Login {...props} />} />
       </Switch>
