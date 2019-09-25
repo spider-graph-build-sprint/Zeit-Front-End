@@ -1,84 +1,76 @@
-import React from "react";
-import { Radar } from "react-chartjs-2";
-//--------------------------------------This Page is no longer in use------------------------------------------
+import React, { useState } from "react";
 
-// class Graphs extends Component{
-//   constructor(props){
-//     super(props);
-//     this.state = {
-//       chartData:props.chartData
-//     }
-//   }
-function Graphs(props) {
-  // static defaultProps = {
-  //   displayTitle:true,
-  //   displayLegend: true,
-  //   legendPosition:'right',
-  //   location:'City'
-  // }
+const User = props => {
+  const { id, name, age, email } = props.user;
+  const [editing, setEditing] = useState(false);
+
+  const [editedUser, setEditedUser] = useState({ name, age, email, id });
+
+  function handleChanges(e) {
+    setEditedUser({ ...editedUser, [e.target.name]: e.target.value });
+  }
 
   return (
-    <div className="chart">
-      <Radar
-        data={chartData}
-        options={{
-          title: {
-            display: props.displayTitle,
-            text: "Largest Cities In " + props.location,
-            fontSize: 25
-          },
-          legend: {
-            display: props.displayLegend,
-            position: props.legendPosition
-          }
+    <>
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          props.updateUser(editedUser);
+          setEditing(!editing);
         }}
-      />
-      {/* <Bar
-          data={this.state.chartData}
-          options={{
-            title:{
-              display:this.props.displayTitle,
-              text:'Largest Cities In '+this.props.location,
-              fontSize:25
-            },
-            legend:{
-              display:this.props.displayLegend,
-              position:this.props.legendPosition
-            }
-          }}
-        />
+      >
+        {editing ? (
+          <input
+            type="text"
+            name="name"
+            value={editedUser.name}
+            onChange={handleChanges}
+          />
+        ) : (
+          <h1>{name}</h1>
+        )}
+        {editing ? (
+          <input
+            type="number"
+            name="age"
+            value={editedUser.age}
+            onChange={handleChanges}
+          />
+        ) : (
+          <h2>{age}</h2>
+        )}
+        {editing ? (
+          <input
+            type="text"
+            name="email"
+            value={editedUser.email}
+            onChange={handleChanges}
+          />
+        ) : (
+          <h3>{email}</h3>
+        )}
+        <button style={{ display: editing ? "block" : "none" }}>
+          Updatenate
+        </button>
+      </form>
 
-        <Line
-          data={this.state.chartData}
-          options={{
-            title:{
-              display:this.props.displayTitle,
-              text:'Largest Cities In '+this.props.location,
-              fontSize:25
-            },
-            legend:{
-              display:this.props.displayLegend,
-              position:this.props.legendPosition
-            }
-          }}
-        />
-
-        <Pie
-          data={this.state.chartData}
-          options={{
-            title:{
-              display:this.props.displayTitle,
-              text:'Largest Cities In '+this.props.location,
-              fontSize:25
-            },
-            legend:{
-              display:this.props.displayLegend,
-              position:this.props.legendPosition
-            }
-          }}
-        /> */}
-    </div>
+      <button
+        onClick={() => {
+          props.delUser(id);
+          setEditing(!editing);
+        }}
+        style={{ display: editing ? "block" : "none" }}
+      >
+        Removenateinator
+      </button>
+      <button
+        onClick={() => setEditing(!editing)}
+        style={{ display: editing ? "none" : "block" }}
+      >
+        Edify
+      </button>
+    </>
   );
-}
+};
 
-export default Graphs;
+export default User;
