@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Bar, Line, Polar, Radar } from "react-chartjs-2";
+import LegEditor from "./LegEditor";
 
 // const [chartData, setChartData] = useState({});
 const intiLabels = [
@@ -47,13 +48,13 @@ function Graph(props) {
 
   const [labels, setLabels] = useState(intiLabels);
 
-  const [editing, setEditing] = useState(false);
+  // const [editing, setEditing] = useState(false);
 
-  const [editedGraphData, setEditedGraphData] = useState({ label: "" });
-  function handleChange(e) {
-    setEditedGraphData({ ...editedGraphData, [e.target.name]: e.target.value });
-    console.log("editedGraphData", editedGraphData);
-  }
+  // const [editedGraphData, setEditedGraphData] = useState({ label: "" });
+  // function handleChange(e) {
+  //   setEditedGraphData({ ...editedGraphData, [e.target.name]: e.target.value });
+  //   console.log("editedGraphData", editedGraphData);
+  // }
 
   // this is passed into the chart comonent
   const data = {
@@ -114,7 +115,7 @@ function Graph(props) {
       </form> */}
       <Radar data={data} />
 
-      <form
+      {/* <form
         onSubmit={e => {
           e.preventDefault();
           props.updateUser(editedGraphData);
@@ -161,7 +162,7 @@ function Graph(props) {
         <button style={{ display: editing ? "block" : "none" }}>
           Updatenate
         </button>
-      </form>
+      </form> */}
       {/* <button
         onClick={() => {
           props.delUser(id);
@@ -171,12 +172,13 @@ function Graph(props) {
       >
         Removenateinator
       </button> */}
-      <button
+      {/* <button
         onClick={() => setEditing(!editing)}
         style={{ display: editing ? "none" : "block" }}
       >
         Edify
-      </button>
+      </button> */}
+      <LegEditor labels={labels} setLabels={setLabels}/>
       <h2>Other viewing Options</h2>
 
       <div className="graphButtons">
