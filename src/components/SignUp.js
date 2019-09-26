@@ -1,23 +1,12 @@
-import axios from "axios";
 import { Field, Form, withFormik } from "formik";
 import React from "react";
+import { connect } from "react-redux";
 import * as Yup from "yup";
+import { register } from "../reducers/auth/actions";
 
 const SignUp = ({ values, errors, touched, isSubmitting }) => {
   return (
     <Form className="signUp">
-      {/* <div>
-        {touched.firstName && errors.firstName && <p>{errors.firstName}</p>}
-        <Field type="text" name="firstName" placeholder="Enter first name" />
-      </div>
-      <div>
-        {touched.lastName && errors.lastName && <p>{errors.lastName}</p>}
-        <Field type="text" name="lastName" placeholder="Enter last name" />
-      </div>
-      <div>
-        {touched.email && errors.email && <p>{errors.email}</p>}
-        <Field type="email" name="email" placeholder="Enter email" />
-      </div> */}
       <div>
         {touched.username && errors.username && <p>{errors.username}</p>}
         <Field type="username" name="username" placeholder="Enter username" />
@@ -38,9 +27,6 @@ const SignUp = ({ values, errors, touched, isSubmitting }) => {
 const FormikSignUp = withFormik({
   mapPropsToValues({ username, password }) {
     return {
-      //   email: email || "",
-      //   firstName: firstName || "",
-      //   lastName: lastName || "",
       username: username || "",
       password: password || ""
     };
@@ -51,23 +37,16 @@ const FormikSignUp = withFormik({
       .min(6, "Password must be 6 characters")
       .required("Password is required")
   }),
-  handleSubmit(values, { resetForm, setErrors, setSubmitting, props }) {
-    const register = {
+  handleSubmit(values, { props }) {
+    const user = {
       username: values.username,
       password: values.password
     };
-    axios
-      .post("https://spider-back-end.herokuapp.com/api/auth/register", register)
-      .then(res => {
-        console.log(res);
-        // resetForm();
-        props.history.push("/login");
-      })
-      .catch(err => {
-        console.log(err);
-      });
-    setSubmitting(false);
+    props.register(user, props.history);
   }
 })(SignUp);
 
-export default FormikSignUp;
+export default connect(
+  null,
+  { register }
+)(FormikSignUp);
