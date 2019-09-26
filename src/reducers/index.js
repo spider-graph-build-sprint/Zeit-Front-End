@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import graphReducer from "./graphReducer";
-import userReducer from "./userReducer";
+import graphReducer from "./graphs/graphReducer";
+import userReducer from "./auth/userReducer";
 
 const rootReducer = combineReducers({
   graph: graphReducer,

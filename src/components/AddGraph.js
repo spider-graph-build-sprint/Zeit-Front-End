@@ -1,83 +1,57 @@
-import React, { useState } from "react";
+import axios from "axios";
+import { Field, Form, withFormik } from "formik";
+import React, { useEffect, useState } from "react";
+import * as Yup from "yup";
 
-const AddGraph = () => {
-  const [state, setState] = useState({});
-  const [labels, setLabels] = useState([{ value: null }]);
-  const [labelData, setLabelData] = useState([{ value: null }]);
-
-  console.log("labels", labels);
-  function handleSubmit(e) {
-    e.preventDefault();
-    setState({ ...state, labels, state });
-  }
-  console.log("state", state);
-  function handleChanges(e) {
-    setState({ ...state, [e.target.name]: e.target.value });
-  }
-  function handleChange(i, event) {
-    const values = [...labels];
-    values[i].value = event.target.value;
-    setLabels(values);
-  }
-
-  function handleAdd() {
-    const values = [...labels];
-    values.push({ value: null });
-    setLabels(values);
-  }
-
-  function handleRemove(i) {
-    const values = [...labels];
-    values.splice(i, 1);
-    setLabels(values);
-  }
+const LoginForm = ({ values, errors, touched, status }) => {
+  const [animals, setAnimals] = useState([]);
+  useEffect(() => {
+    if (status) {
+      setAnimals([...animals, status]);
+    }
+  }, [status]);
 
   return (
-    <>
-      <form className="addGraph">
-        <input
+    <div className="animal-form">
+      <div className="loginFormTitle">welcome back</div>
+      <Form>
+        <Field type="text" name="graphName" placeholder="Graph Name" />
+        {touched.graphName && errors.graphName && (
+          <p className="error">{errors.graphName}</p>
+        )}
+
+        <Field
           type="text"
-          name="title"
-          placeholder="Graph Title"
-          value={state.title}
-          onChange={handleChanges}
+          name="legs"
+          placeholder='["leg1", "leg2", "leg3", "leg4"]'
         />
+        {touched.legs && errors.legs && <p className="error">{errors.legs}</p>}
 
-        {labels.map((labels, idx) => {
-          return (
-            <div className="graphPoint" key={`${labels}-${idx}`}>
-              <input
-                type="text"
-                placeholder="Enter text"
-                onChange={e => handleChange(idx, e)}
-              />
-              <button type="button" onClick={() => handleRemove(idx)}>
-                X
-              </button>
-            </div>
-          );
-        })}
-        <button
-          className="addFriendButton"
-          type="button"
-          onClick={() => handleAdd()}
-        >
-          + Add Label
-        </button>
-
-        <br />
-        <input
-          type="text"
-          name="dataset"
-          placeholder="Graph dataset Label"
-          value={state.datasetLabel}
-          onChange={handleChanges}
-        />
-
-        <button onClick={handleSubmit}>Submit</button>
-      </form>
-    </>
+        <button>Login</button>
+      </Form>
+    </div>
   );
 };
+const FormikLoginForm = withFormik({
+  mapPropsToValues({ graphName, legs }) {
+    return {
+      graphName: graphName || "",
+      legs: legs || ""
+    };
+  },
+  validationSchema: Yup.object().shape({
+    graphName: Yup.string().required("You must add a graphName"),
+    legs: Yup.string().required("You must enter the legs")
+  }),
+  //You can use this to see the values
+  handleSubmit(values, { setStatus }) {
+    axios
+      .post("https://reqres.in/api/users/", values)
+      .then(res => {
+        setStatus(res.data);
+      })
+      .catch(err => console.log(err.res));
+  }
+})(LoginForm);
 
-export default AddGraph;
+export default FormikLoginForm;

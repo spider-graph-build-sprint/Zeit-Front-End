@@ -1,38 +1,28 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { Route, Switch } from "react-router-dom";
-import { getUserData } from "./actions/getUserData";
+import React from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
-import Home from "./components/Home";
+import Dashboard from "./components/Dashboard";
+// import Home from "./components/Home";
 import Login from "./components/Login";
 import NavBar from "./components/NavBar";
 import SignUp from "./components/SignUp";
-import Dashboard from "./components/Dashboard";
+import PrivateRoute from "./utils/PrivateRoute";
+import AddGraph from "./components/AddGraph";
 
-function App(props) {
-  useEffect(() => {
-    const localUserData = JSON.parse(localStorage.getItem("userData"));
-
-    if (localUserData) {
-      console.log("New app thing was called!");
-      props.getUserData(localUserData.user_id);
-    }
-  }, []);
+function App() {
   return (
     <>
       <NavBar />
       <Switch>
-        {/* <Route path="/" component={NavBar} /> */}
-        <Route exact path="/" render={() => <Home />} />
-        <Route path="/dashboard" render={() => <Dashboard/>}/>
+        {/*<Route exact path="/" render={() => <Home />} />*/}
         <Route path="/sign-up" render={props => <SignUp {...props} />} />
         <Route path="/login" render={props => <Login {...props} />} />
+        <PrivateRoute exact path="/dashboard" component={Dashboard} />
+        <PrivateRoute path="/add-graph" component={AddGraph}/>
+        <Redirect from="/" to="/profile" />
       </Switch>
     </>
   );
 }
 
-export default connect(
-  null,
-  { getUserData }
-)(App);
+export default App;
