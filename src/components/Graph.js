@@ -95,89 +95,9 @@ function Graph(props) {
         />
         <button type="submit"> add leg </button>
       </form>
-      {/* 
-      <form onSubmit={handleDataSubmit}>
-        <input
-          name="title"
-          type="text"
-          placeholder="new leg name"
-          onChange={handleChanges}
-        />
-        <input
-          name="dataset"
-          type="text"
-          placeholder="new leg name"
-          onChange={handleChanges}
-          name="newLegName"
-          value={state.newLegName}
-        />
-        <button type="submit"> add leg </button>
-      </form> */}
+
       <Radar data={data} />
 
-      {/* <form
-        onSubmit={e => {
-          e.preventDefault();
-          props.updateUser(editedGraphData);
-          setEditing(!editing);
-        }}
-      >
-        {editing ? (
-          labels.map(labels => {
-            return (
-              <input
-                type="text"
-                name="name"
-                value={labels}
-                onChange={handleChange}
-              />
-            );
-          })
-        ) : (
-          <h1>
-            {labels.map(label => {
-              return <p className="labels">{label}</p>;
-            })}
-          </h1>
-        )}
-
-        {editing ? (
-          dataSet.map(data => {
-            return (
-              <input
-                type="text"
-                name="name"
-                value={data.data}
-                onChange={handleChange}
-              />
-            );
-          })
-        ) : (
-          <h1>
-            {dataSet.map(data => {
-              return <p>{data.data.join(", ")}</p>;
-            })}
-          </h1>
-        )}
-        <button style={{ display: editing ? "block" : "none" }}>
-          Updatenate
-        </button>
-      </form> */}
-      {/* <button
-        onClick={() => {
-          props.delUser(id);
-          setEditing(!editing);
-        }}
-        style={{ display: editing ? "block" : "none" }}
-      >
-        Removenateinator
-      </button> */}
-      {/* <button
-        onClick={() => setEditing(!editing)}
-        style={{ display: editing ? "none" : "block" }}
-      >
-        Edify
-      </button> */}
       <LegEditor labels={labels} setLabels={setLabels} />
       <h2>Other viewing Options</h2>
 
