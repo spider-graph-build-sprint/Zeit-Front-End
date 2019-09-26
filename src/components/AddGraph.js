@@ -2,7 +2,7 @@ import { Field, Form, withFormik } from "formik";
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import * as Yup from "yup";
-import { addGraph } from "../reducers/auth/actions";
+import { addGraph } from "../reducers/graphs/actions";
 
 const AddGraph = ({ values, errors, touched, status }) => {
   const [state, setState] = useState([]);
@@ -30,7 +30,7 @@ const AddGraph = ({ values, errors, touched, status }) => {
       }
     };
 
-    addGraph(history, postObj);
+    addGraph(postObj);
   }
 
   return (
