@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { axize } from "../utils";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 // import AddGraph from "./AddGraph";
 import Graph from "./Graph";
 
@@ -7,21 +7,21 @@ function Home(props) {
   const [list, setList] = useState([]);
 
   const addUser = user => {
-    axize()
+    axiosWithAuth()
       .post("http://")
       .then(rez => setList(rez.data))
       .catch(err => console.error(err));
   };
 
   const updateUser = user => {
-    axize()
+    axiosWithAuth()
       .put(`http://`)
       .then(res => setList(res.data))
       .catch(err => console.error(err));
   };
 
   const delUser = id => {
-    axize()
+    axiosWithAuth()
       .delete(`http://`)
       .then(rez => setList(rez.data))
       .catch(err => console.error(err));

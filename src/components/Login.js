@@ -2,7 +2,7 @@ import { Field, Form, withFormik } from "formik";
 import React from "react";
 import { connect } from "react-redux";
 import * as Yup from "yup";
-import { userLogin } from "../actions/userLogin";
+import { login } from "../reducers/auth/actions";
 
 const Login = ({ errors, touched }) => {
   return (
@@ -38,11 +38,11 @@ const FormikLogin = withFormik({
       .required("Password is required")
   }),
   handleSubmit(values, { props }) {
-    props.userLogin(props.history, values);
+    props.login(values, props.history);
   }
 })(Login);
 
 export default connect(
   null,
-  { userLogin }
+  { login }
 )(FormikLogin);

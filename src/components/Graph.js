@@ -178,7 +178,7 @@ function Graph(props) {
       >
         Edify
       </button> */}
-      <LegEditor labels={labels} setLabels={setLabels}/>
+      <LegEditor labels={labels} setLabels={setLabels} />
       <h2>Other viewing Options</h2>
 
       <div className="graphButtons">

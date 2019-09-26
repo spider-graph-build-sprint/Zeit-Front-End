@@ -1,18 +1,62 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import GraphCard from "./GraphCard";
+import {connect} from "react-redux";
+import {getGraphs} from "../reducers/graphs/actions";
+import {deleteGraph} from "../reducers/graphs/actions";
+import Grid from "@material-ui/core/Grid";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
+import Clear from "@material-ui/icons/Clear";
+import IconButton from '@material-ui/core/IconButton';
 
-const fakeData = {
-    name: "Graph 1",
-    path: "my-graph",
-    imgUrl: "https://cdn.pixabay.com/photo/2019/09/13/14/31/elephant-4474027__340.jpg"
-}
+const Dashboard = (props) => {
 
-const Dashboard = () => {
+    useEffect(() => {
+        props.getGraphs();
+    }, []);
+
     return (
-        <div className="dashboard">
-            <GraphCard name={fakeData.name} path={fakeData.path} imgUrl={fakeData.imgUrl}/>
-        </div>
-    );
-}
+        <>
+            <Container>
+                <Grid container spacing={1}>
+                    {props.graphs.length > 0 && (
+                        props.graphs.map(graph => {
+                            return (
+                                <>
+                                    <Grid item xs={1}>
+                                        <IconButton onClick={() => props.deleteGraph(graph.name)}>
+                                            <Clear/>
+                                        </IconButton>
+                                    </Grid>
+                                    <Grid item xs={11}>
+                                        <Card>
+                                            <CardContent>
+                                                <Typography variant="h5" component="h2">
+                                                    Name of the graph: {graph.name}
+                                                </Typography>
 
-export default Dashboard;
+                                            </CardContent>
+                                        </Card>
+                                    </Grid>
+                                </>
+                            )
+                        })
+                    )}
+                </Grid>
+            </Container>
+        </>
+    );
+};
+
+const mapPropsToState = state => {
+    return {
+        graphs: state.graph.graphs,
+    };
+};
+
+export default connect(
+    mapPropsToState,
+    {getGraphs, deleteGraph},
+)(Dashboard);
