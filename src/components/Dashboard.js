@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import GraphCard from "./GraphCard";
+// import GraphCard from "./GraphCard";
 import {connect} from "react-redux";
 import {getGraphs} from "../reducers/graphs/actions";
 import {deleteGraph} from "../reducers/graphs/actions";
@@ -10,6 +10,8 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Clear from "@material-ui/icons/Clear";
 import IconButton from '@material-ui/core/IconButton';
+// import { Link } from "react-router-dom";
+import {withRouter} from "react-router";
 
 const Dashboard = (props) => {
 
@@ -21,7 +23,7 @@ const Dashboard = (props) => {
         <>
             <Container>
                 <Grid container spacing={1}>
-                    {props.graphs.length > 0 && (
+                    {props.graphs.length === 0 && (
                         props.graphs.map(graph => {
                             return (
                                 <>
@@ -44,7 +46,19 @@ const Dashboard = (props) => {
                             )
                         })
                     )}
+                    {/* <Card onClick={() => {props.history.push("add-graph")}}>
+                    
+                        <CardContent>
+                            <Typography variant="h5" component="h2">
+                                New graph
+                            </Typography>
+                        </CardContent>
+                    </Card> */}
+                    <button onClick={() => {props.history.push("add-graph")}}>
+                        New graph
+                    </button>
                 </Grid>
+                {/* <Link to="/add-graph" component={Link}>add a new graph</Link> */}
             </Container>
         </>
     );
@@ -56,7 +70,7 @@ const mapPropsToState = state => {
     };
 };
 
-export default connect(
+export default withRouter(connect(
     mapPropsToState,
     {getGraphs, deleteGraph},
-)(Dashboard);
+)(Dashboard));

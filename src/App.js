@@ -7,6 +7,7 @@ import Login from "./components/Login";
 import NavBar from "./components/NavBar";
 import SignUp from "./components/SignUp";
 import PrivateRoute from "./utils/PrivateRoute";
+import AddGraph from "./components/AddGraph";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/sign-up" render={props => <SignUp {...props} />} />
         <Route path="/login" render={props => <Login {...props} />} />
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
+        <PrivateRoute path="/add-graph" component={AddGraph}/>
         <Redirect from="/" to="/profile" />
       </Switch>
     </>
