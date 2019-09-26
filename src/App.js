@@ -18,7 +18,7 @@ function App() {
         <Route path="/sign-up" render={props => <SignUp {...props} />} />
         <Route path="/login" render={props => <Login {...props} />} />
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
-        <PrivateRoute path="/add-graph" component={AddGraph}/>
+        <PrivateRoute path="/add-graph" component={AddGraph} />
         <Redirect from="/" to="/profile" />
       </Switch>
     </>
