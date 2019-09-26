@@ -23,7 +23,7 @@ import {
   GET_GRAPHS_SUCCESS
 } from "./types";
 
-export const addDataSet = (history, graphData) => {
+export const addGraph = (history, graphData) => {
   return dispatch => {
     dispatch({ type: ADD_GRAPH_START });
     axiosWithAuth()

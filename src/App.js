@@ -1,6 +1,7 @@
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
+import AddGraph from "./components/AddGraph";
 import Dashboard from "./components/Dashboard";
 // import Home from "./components/Home";
 import Login from "./components/Login";
