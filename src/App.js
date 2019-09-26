@@ -8,7 +8,6 @@ import Login from "./components/Login";
 import NavBar from "./components/NavBar";
 import SignUp from "./components/SignUp";
 import PrivateRoute from "./utils/PrivateRoute";
-import AddGraph from "./components/AddGraph";
 
 function App() {
   return (
