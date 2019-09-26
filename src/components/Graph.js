@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Bar, Line, Polar, Radar } from "react-chartjs-2";
+import LegEditor from "./LegEditor";
 
 // const [chartData, setChartData] = useState({});
 const intiLabels = [
@@ -21,22 +22,21 @@ var dynamicColors = function() {
 const intiDataset = [
   {
     label: "Boston",
-    data: [617594, 181045, 153060, 106519, 105162, 905072],
+    data: [61, 18, 15, 10, 10, 90],
     // backgroundColor: "rgba(255, 99, 132, 0.6)"
     backgroundColor: dynamicColors()
   },
   {
     label: "San Diego",
-    data: [105162, 181045, 617594, 153060, 806519, 95072],
+    data: [10, 18, 61, 15, 80, 95],
     // backgroundColor: "rgba(54, 162, 235, 0.6)"
     backgroundColor: dynamicColors()
   }
 ];
 
-function Graph() {
+function Graph(props) {
   // for changing graph type with buttons buttons
   const [graph, setGraph] = useState("");
-
 
   // state is a record of what's in the form itself
   const [state, setState] = useState({ label: "" });
@@ -48,6 +48,14 @@ function Graph() {
 
   const [labels, setLabels] = useState(intiLabels);
 
+  // const [editing, setEditing] = useState(false);
+
+  // const [editedGraphData, setEditedGraphData] = useState({ label: "" });
+  // function handleChange(e) {
+  //   setEditedGraphData({ ...editedGraphData, [e.target.name]: e.target.value });
+  //   console.log("editedGraphData", editedGraphData);
+  // }
+
   // this is passed into the chart comonent
   const data = {
     labels: [...labels],
@@ -56,26 +64,22 @@ function Graph() {
 
   // used to maintain link between input changes and state
   function handleChanges(e) {
-    setState({ ...state, [e.target.name]: e.target.value });
+    setState({
+      ...state,
+      [e.target.name]: e.target.value
+    });
+    console.log("state", state);
   }
-  // function handleDataset(e) {
-  //   setState({ ...state, [e.target.name]: e.target.value });
-  // }
+
   function handleSubmit(e) {
     e.preventDefault();
 
-
     // the new label get's added to the end of the labels list.
     setLabels([...labels, state.label]);
-
-  }
-  function handleDataSubmit(e) {
-    e.preventDefault();
-
-    // the new label get's added to the end of the labels list.
-    setDataSet([...dataSet, state.dataSet]);
   }
 
+  // }
+  //--------------------------------------------------------------
   // ExportChart({ format: "jpg" });
   // Bar, Line, Radar, Polar, ;
   return (
@@ -91,7 +95,7 @@ function Graph() {
         />
         <button type="submit"> add leg </button>
       </form>
-
+      {/* 
       <form onSubmit={handleDataSubmit}>
         <input
           name="title"
@@ -108,6 +112,7 @@ function Graph() {
           value={state.newLegName}
         />
         <button type="submit"> add leg </button>
+<<<<<<< HEAD
       </form>
 
 
@@ -125,6 +130,75 @@ function Graph() {
         })
       }
 
+=======
+      </form> */}
+      <Radar data={data} />
+
+      {/* <form
+        onSubmit={e => {
+          e.preventDefault();
+          props.updateUser(editedGraphData);
+          setEditing(!editing);
+        }}
+      >
+        {editing ? (
+          labels.map(labels => {
+            return (
+              <input
+                type="text"
+                name="name"
+                value={labels}
+                onChange={handleChange}
+              />
+            );
+          })
+        ) : (
+          <h1>
+            {labels.map(label => {
+              return <p className="labels">{label}</p>;
+            })}
+          </h1>
+        )}
+
+        {editing ? (
+          dataSet.map(data => {
+            return (
+              <input
+                type="text"
+                name="name"
+                value={data.data}
+                onChange={handleChange}
+              />
+            );
+          })
+        ) : (
+          <h1>
+            {dataSet.map(data => {
+              return <p>{data.data.join(", ")}</p>;
+            })}
+          </h1>
+        )}
+        <button style={{ display: editing ? "block" : "none" }}>
+          Updatenate
+        </button>
+      </form> */}
+      {/* <button
+        onClick={() => {
+          props.delUser(id);
+          setEditing(!editing);
+        }}
+        style={{ display: editing ? "block" : "none" }}
+      >
+        Removenateinator
+      </button> */}
+      {/* <button
+        onClick={() => setEditing(!editing)}
+        style={{ display: editing ? "none" : "block" }}
+      >
+        Edify
+      </button> */}
+      <LegEditor labels={labels} setLabels={setLabels}/>
+>>>>>>> a304d9379874532b47188a6b08bbce78110a5797
       <h2>Other viewing Options</h2>
 
       <div className="graphButtons">

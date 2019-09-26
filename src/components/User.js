@@ -5,7 +5,7 @@ const User = props => {
     const { label } = props.user
     const [editing, setEditing] = useState(false)
 
-    const [editedUser, setEditedUser] = useState({ name })
+    const [editedUser, setEditedUser] = useState({ label })
 
     function handleChanges(e) {
         setEditedUser({ ...editedUser, [e.target.name]: e.target.value })
@@ -19,7 +19,7 @@ const User = props => {
                 setEditing(!editing)
             }}>
                 {editing ?
-                    <input type="text" name='name' value={editedUser.name} onChange={handleChanges} />
+                    <input type="text" name='label' value={editedUser.name} onChange={handleChanges} />
                     :
                     <h1>{name}</h1>}
                 <button style={{ display: editing ? 'block' : 'none' }}>Updatenate</button>

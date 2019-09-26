@@ -24,7 +24,7 @@ function App(props) {
       <Switch>
         {/* <Route path="/" component={NavBar} /> */}
         <Route exact path="/" render={() => <Home />} />
-        <Route path="/dashboard" render={props => <Dashboard/>}/>
+        <Route path="/dashboard" render={() => <Dashboard/>}/>
         <Route path="/sign-up" render={props => <SignUp {...props} />} />
         <Route path="/login" render={props => <Login {...props} />} />
       </Switch>
