@@ -1,24 +1,44 @@
-import axios from "axios";
 import { Field, Form, withFormik } from "formik";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { connect } from "react-redux";
 import * as Yup from "yup";
+import { addGraph } from "../reducers/auth/actions";
 
-const LoginForm = ({ values, errors, touched, status }) => {
-  const [animals, setAnimals] = useState([]);
-  useEffect(() => {
-    if (status) {
-      setAnimals([...animals, status]);
-    }
-  }, [status]);
+const AddGraph = ({ values, errors, touched, status }) => {
+  const [state, setState] = useState([]);
+  // useEffect(() => {
+  //   if (status) {
+  //     setAnimals([...animals, status]);
+  //   }
+  // }, [status]);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    setState({ ...state, state });
+
+    const postObj = {
+      expense: {
+        name: state.name,
+        legs: [state.legs],
+        datasets: [
+          {
+            title: state.title,
+            points: [state.points]
+          }
+        ]
+      }
+    };
+
+    addGraph(history, postObj);
+  }
 
   return (
     <div className="animal-form">
       <div className="loginFormTitle">welcome back</div>
       <Form>
-        <Field type="text" name="graphName" placeholder="Graph Name" />
-        {touched.graphName && errors.graphName && (
-          <p className="error">{errors.graphName}</p>
-        )}
+        <Field type="text" name="name" placeholder="Graph Name" />
+        {touched.name && errors.name && <p className="error">{errors.name}</p>}
 
         <Field
           type="text"
@@ -27,31 +47,57 @@ const LoginForm = ({ values, errors, touched, status }) => {
         />
         {touched.legs && errors.legs && <p className="error">{errors.legs}</p>}
 
-        <button>Login</button>
+        <Field type="text" name="title" placeholder="DataSet Title" />
+        {touched.title && errors.title && (
+          <p className="error">{errors.title}</p>
+        )}
+        <Field
+          type="text"
+          name="points"
+          placeholder='["Data Points 1", "Data Points 2", "Data Points 3", "Data Points 4"]'
+        />
+        {touched.points && errors.points && (
+          <p className="error">{errors.points}</p>
+        )}
+
+        <button onClick={handleSubmit}>Login</button>
       </Form>
     </div>
   );
 };
 const FormikLoginForm = withFormik({
-  mapPropsToValues({ graphName, legs }) {
+  mapPropsToValues({ name, legs, title, points }) {
     return {
-      graphName: graphName || "",
-      legs: legs || ""
+      name: name || "",
+      legs: legs || "",
+      title: title || "",
+      points: points || ""
     };
   },
   validationSchema: Yup.object().shape({
-    graphName: Yup.string().required("You must add a graphName"),
-    legs: Yup.string().required("You must enter the legs")
-  }),
+    name: Yup.string().required("You must add a name"),
+    legs: Yup.string().required("You must enter the legs"),
+    title: Yup.string().required("You must enter the Data Set Title"),
+    points: Yup.string().required("You must enter the Data Points")
+  })
   //You can use this to see the values
-  handleSubmit(values, { setStatus }) {
-    axios
-      .post("https://reqres.in/api/users/", values)
-      .then(res => {
-        setStatus(res.data);
-      })
-      .catch(err => console.log(err.res));
-  }
-})(LoginForm);
+  // handleSubmit(values, { setStatus }) {
+  //   axios
+  //     .post("https://reqres.in/api/users/", values)
+  //     .then(res => {
+  //       setStatus(res.data);
+  //     })
+  //     .catch(err => console.log(err.res));
+  // }
+})(AddGraph);
 
-export default FormikLoginForm;
+const mapPropsToState = state => {
+  return {
+    isAuth: state.user.isAuth
+  };
+};
+
+export default connect(
+  mapPropsToState,
+  { addGraph }
+)(FormikLoginForm);
