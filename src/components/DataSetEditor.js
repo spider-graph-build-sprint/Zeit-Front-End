@@ -4,17 +4,17 @@ import { editGraph } from "../reducers/graphs/actions";
 
 const LegEditor = props => {
   const [visible, setVisible] = useState(false);
-  const [newLabels, setNewLabels] = useState([]);
+  const [newDataSet, setNewDataSet] = useState([]);
 
   const handleChange = e => {
-    const newLabelsCopy = [...newLabels];
-    newLabelsCopy[e.target.name] = e.target.value;
-    setNewLabels([...newLabelsCopy]);
+    const newDataSetCopy = [...newDataSet];
+    newDataSetCopy[e.target.name] = e.target.value;
+    setNewDataSet([...newDataSetCopy]);
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    props.setLabels(newLabels);
+    props.setDataSet(newDataSet);
     props.editGraph();
   };
 
@@ -25,8 +25,8 @@ const LegEditor = props => {
   }, [visible]);
 
   useEffect(() => {
-    setNewLabels(props.labels);
-  }, [props.labels]);
+    setNewDataSet(props.datasets);
+  }, [props.datasets]);
 
   return (
     <div className="legEditor">
@@ -38,13 +38,13 @@ const LegEditor = props => {
         Edit leg names
       </button>
       <form id="legEditorForm" onSubmit={handleSubmit}>
-        {newLabels.map((label, idx) => {
+        {newDataSet.map((label, idx) => {
           return (
             <input
               onChange={e => handleChange(e)}
               name={idx}
               key={idx}
-              value={newLabels[idx]}
+              value={newDataSet[idx]}
               placeholder={label}
             ></input>
           );

@@ -23,15 +23,16 @@ import {
   GET_GRAPHS_SUCCESS
 } from "./types";
 
-export const addGraph = (history, graphData) => {
+export const addGraph = (graphData, history) => {
   return dispatch => {
     dispatch({ type: ADD_GRAPH_START });
+    console.log("graphData", graphData);
     axiosWithAuth()
-      .post("https://spider-back-end.herokuapp.com/api/graph", graphData)
+      .post("https://spider-back-end.herokuapp.com/api/graphs", graphData)
       .then(res => {
         console.log("The response from posting a GRAPH is", res.data);
         dispatch({ type: ADD_GRAPH_SUCCESS, payload: res.data });
-        history.push("/graphlist");
+        history.push("/dashboard");
       })
       .catch(err => {
         console.log(err);
@@ -40,20 +41,21 @@ export const addGraph = (history, graphData) => {
   };
 };
 
-export const editGraph = (history, graphId, graphData) => {
+export const editGraph = (name, graphData, history) => {
   return dispatch => {
     dispatch({ type: EDIT_GRAPH_START });
     axiosWithAuth()
       .put(
-        `https://spider-back-end.herokuapp.com/api/graph/${graphId}`,
+        `https://spider-back-end.herokuapp.com/api/graphs/${name}`,
         graphData
       )
       .then(res => {
         console.log(res);
         dispatch({
           type: EDIT_GRAPH_SUCCESS,
-          payload: { graphId: graphId, graphData: res.data }
+          payload: { name: name, graphData: res.data }
         });
+        history.push(`/${name}`);
       })
       .catch(err => {
         console.log(err);
@@ -97,15 +99,18 @@ export const getGraphs = () => {
 
 //* DATASET
 
-export const addDataSets = (history, graphData) => {
+export const addDataSets = (name, graphData, history) => {
   return dispatch => {
     dispatch({ type: ADD_DATASET_START });
     axiosWithAuth()
-      .post("https://spider-back-end.herokuapp.com/api/graph", graphData)
+      .post(
+        `https://spider-back-end.herokuapp.com/api/graphs/${name}`,
+        graphData
+      )
       .then(res => {
         console.log("The response from posting a GRAPH is", res.data);
         dispatch({ type: ADD_DATASET_SUCCESS, payload: res.data });
-        history.push("/graphlist");
+        history.push(`/${name}`);
       })
       .catch(err => {
         console.log(err);
@@ -114,20 +119,21 @@ export const addDataSets = (history, graphData) => {
   };
 };
 
-export const editDataSet = (history, graphId, graphData) => {
+export const editDataSet = (name, graphData, history) => {
   return dispatch => {
     dispatch({ type: EDIT_DATASET_START });
     axiosWithAuth()
       .put(
-        `https://spider-back-end.herokuapp.com/api/graph/${graphId}`,
+        `https://spider-back-end.herokuapp.com/api/graphs/${name}`,
         graphData
       )
       .then(res => {
         console.log(res);
         dispatch({
           type: EDIT_DATASET_SUCCESS,
-          payload: { graphId: graphId, graphData: res.data }
+          payload: { name: name, graphData: res.data }
         });
+        history.push(`/${name}`);
       })
       .catch(err => {
         console.log(err);
