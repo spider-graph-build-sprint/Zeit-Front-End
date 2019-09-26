@@ -12,23 +12,11 @@ const LegEditor = props => {
     }
     
     const removeLabel = idx => {
-        // const newLabelsCopy = [...newLabelsCopy];
-        // newLabelsCopy.splice(idx, 1);
-        // setNewLabels([...newLabelsCopy]);
         setRemovedLabels([...removedLabels, idx]);
     }
 
     const removeLeg = idx => {
-        // const leg = document.querySelector(`#legEditorForm input[name="${idx}"]`);
-        // const delLeg = document.querySelector(`#legEditorForm button[name="del${idx}"]`);
-        // if(!leg) console.log(`error no leg ${idx}`);
-        // if(!delLeg) console.log(`error no delleg ${idx}`);
-        // document.querySelector("#legEditorForm").removeChild(leg);
-        // document.querySelector("#legEditorForm").removeChild(delLeg);
-        // console.log(`index=${idx}, leg=${leg}, delleg=${delLeg}\n\n\n`)
-        // removeLabel(idx);
         const legInput = document.querySelector(`#legEditorForm div[id="${idx}"`);        
-        // document.querySelector("#legEditorForm").removeChild(legInput);
         legInput.style.display = "none";
         removeLabel(idx);
     }
