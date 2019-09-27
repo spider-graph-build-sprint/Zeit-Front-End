@@ -50,6 +50,7 @@ const Dashboard = props => {
                             </Typography>
                         </CardContent>
                     </Card> */}
+
           <button
             onClick={() => {
               props.history.push("add-graph");
