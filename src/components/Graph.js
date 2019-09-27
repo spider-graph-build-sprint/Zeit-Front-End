@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Bar, Line, Polar, Radar } from "react-chartjs-2";
 import { connect } from "react-redux";
 import { deleteGraph, getGraph } from "../reducers/graphs/actions";
+import AddDataSet from "./AddDataSet";
 // import DataSetEditor from "./DataSetEditor";
 // import LegEditor from "./LegEditor";
 
-// const [chartData, setChartData] = useState({});
+// const [data, setdata] = useState({});
 const intiLabels = ["test", "test2", "test3"];
 
 var dynamicColors = function() {
@@ -18,7 +19,7 @@ var dynamicColors = function() {
 const intiDataset = [
   {
     label: "Boston",
-    data: [61, 76, 35],
+    data: [],
     // backgroundColor: "rgba(255, 99, 132, 0.6)"
     backgroundColor: dynamicColors()
   }
@@ -39,13 +40,31 @@ function Graph(props) {
   const [labels, setLabels] = useState(intiLabels);
 
   // this is passed into the chart comonent
-  const data = {
-    labels: [...labels],
-    datasets: [...dataSet]
-  };
+  // const addDatasets = {
+  //   label: props.title,
+  //   data: props.points,
+  //   backgroundColor: dynamicColors()
+  // };
 
+  console.log(props.datasets.points);
+  const data = {
+    labels: props.legs,
+    datasets: props.datasets
+    // datasets: {
+    //   label: props.datasets.title,
+    //   data: props.datasets.points
+    // }
+  };
+  // const labels = props.legs;
+  // const datasets =
+  //  props.datasets.forEach(
+  //      dataset => (dataset.backgroundColor = "rgba(255, 99, 132, 0.6)"))
   useEffect(() => {
-    props.getGraph(props.match.params.name);
+    props.getGraph(
+      props.match.params.name,
+      props.match.params.legs,
+      props.match.params.datasets
+    );
   }, []);
 
   // used to maintain link between input changes and state
@@ -54,7 +73,6 @@ function Graph(props) {
       ...state,
       [e.target.name]: e.target.value
     });
-    console.log("state", state);
   }
 
   function handleSubmit(e) {
@@ -70,7 +88,8 @@ function Graph(props) {
   // Bar, Line, Radar, Polar, ;
   return (
     <div className="graphPage">
-      {console.log("props.name", props.name, props.legs, props.datasets)}
+      {console.log("props.datasets", props.datasets)}
+      {/* {console.log("data", data)} */}
 
       <h2>Welcome to Spider Graphs R Us</h2>
       <button onClick={() => deleteGraph()}>Delete This Graph </button>
@@ -88,6 +107,7 @@ function Graph(props) {
 
       {/* <LegEditor labels={labels} setLabels={setLabels} /> */}
       {/* <DataSetEditor dataSet={dataSet} setDataSet={setDataSet} /> */}
+      <AddDataSet name={props.name} />
       <h2>Other viewing Options</h2>
 
       <div className="graphButtons">
@@ -108,14 +128,16 @@ function Graph(props) {
   );
 }
 const mapPropsToState = state => {
-  console.log(
-    "mapProps",
-    state.graph.name,
-    state.graph.legs,
-    state.graph.datasets
-  );
+  // console.log(
+  //   "mapProps.Name",
+  //   state.graph.name,
+  //   "mapProps.Legs",
+  //   state.graph.legs,
+  //   "mapProps.Datasets",
+  //   state.graph.datasets
+  // );
   return {
-    isAuth: state.user.isAuth,
+    // isAuth: state.user.isAuth,
     name: state.graph.name,
     legs: state.graph.legs,
     datasets: state.graph.datasets

@@ -117,18 +117,19 @@ export const getGraph = name => {
 };
 //* DATASET
 
-export const addDataSets = (name, graphData, history) => {
+export const addDataSets = (dataset, name, history) => {
+  console.log("datasetname", name, dataset);
   return dispatch => {
     dispatch({ type: ADD_DATASET_START });
     axiosWithAuth()
       .post(
-        `https://spider-back-end.herokuapp.com/api/graphs/${name}`,
-        graphData
+        `https://spider-back-end.herokuapp.com/api/graphs/${name}/dataset`,
+        dataset
       )
       .then(res => {
-        console.log("The response from posting a GRAPH is", res.data);
+        console.log("The response from posting a Dataset is", res.data);
         dispatch({ type: ADD_DATASET_SUCCESS, payload: res.data });
-        history.push(`/${name}`);
+        // history.push(`/${name}`);
       })
       .catch(err => {
         console.log(err);

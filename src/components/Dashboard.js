@@ -124,7 +124,15 @@ const Dashboard = props => {
                 </>
               );
             })}
+            
         </Grid>
+               <button
+            onClick={() => {
+              props.history.push("add-graph");
+            }}
+          >
+            New graph
+          </button>
       </Container>
     </>
   );

@@ -44,7 +44,6 @@ const reducers = (state = initialState, { type, payload }) => {
         isLoading: true
       };
     case ADD_GRAPH_SUCCESS:
-      console.log("reducer", payload);
       return {
         ...state,
         error: "",
@@ -110,18 +109,16 @@ const reducers = (state = initialState, { type, payload }) => {
         error: ""
       };
     case GET_GRAPH_SUCCESS:
-      console.log("Success", payload);
+      const [graph] = payload;
       return {
         ...state,
         isLoading: false,
-        name: payload.name,
-        legs: payload.legs,
-        datasets: payload.datasets,
+        name: graph.name,
+        legs: graph.legs,
+        datasets: graph.datasets,
         error: ""
       };
     case GET_GRAPH_FAILURE:
-      console.log("Failure", payload);
-
       return {
         ...state,
         error: payload,
@@ -158,11 +155,15 @@ const reducers = (state = initialState, { type, payload }) => {
         isLoading: true
       };
     case ADD_DATASET_SUCCESS:
+      console.log("dataPayload", payload);
+      const datasetcolor = payload;
+      datasetcolor.backgroundColor = "rgba(255, 99, 132, 0.6)";
+      console.log("datasetcolor", datasetcolor);
       return {
         ...state,
         error: "",
         isLoading: false,
-        datasets: [...state.datasets, payload]
+        datasets: [...state.datasets, datasetcolor]
       };
     case ADD_DATASET_FAILURE:
       return {
