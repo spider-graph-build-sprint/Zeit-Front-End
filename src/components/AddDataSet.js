@@ -2,11 +2,12 @@ import { Field, Form, withFormik } from "formik";
 import React from "react";
 import { connect } from "react-redux";
 import * as Yup from "yup";
-s;
+import { addDataSets } from "../reducers/graphs/actions";
+
 const AddDataSet = ({ history, addDataSets, errors, touched, status }) => {
   return (
     <div className="addDataSet-form">
-      <div className="addDataSetsFormTitle">welcome back</div>
+      <div className="addDataSeFormTitle">welcome back</div>
       <Form>
         <Field type="text" name="title" placeholder="DataSet Name" />
         {touched.title && errors.title && (
@@ -31,7 +32,7 @@ const AddDataSet = ({ history, addDataSets, errors, touched, status }) => {
     </div>
   );
 };
-const FormikLoginForm = withFormik({
+const FormikDataSetForm = withFormik({
   mapPropsToValues({ title, points1, points2, points3 }) {
     return {
       title: title || "",
@@ -54,7 +55,8 @@ const FormikLoginForm = withFormik({
     const points3 = values.points3;
 
     props.addDataSets(
-      { title, pointss: [points1, points2, points3] },
+      { title, points: [points1, points2, points3] },
+      props.name,
       props.history
     );
   }
@@ -68,4 +70,4 @@ const mapPropsToState = state => {
 export default connect(
   mapPropsToState,
   { addDataSets }
-)(FormikLoginForm);
+)(FormikDataSetForm);

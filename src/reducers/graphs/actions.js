@@ -20,7 +20,10 @@ import {
   EDIT_GRAPH_SUCCESS,
   GET_GRAPHS_FAILURE,
   GET_GRAPHS_START,
-  GET_GRAPHS_SUCCESS
+  GET_GRAPHS_SUCCESS,
+  GET_GRAPH_FAILURE,
+  GET_GRAPH_START,
+  GET_GRAPH_SUCCESS
 } from "./types";
 
 export const addGraph = (graphData, history) => {
@@ -68,7 +71,7 @@ export const deleteGraph = name => {
   return dispatch => {
     dispatch({ type: DELETE_GRAPH_START });
     axiosWithAuth()
-      .delete(`/api/graphs/${name}`)
+      .delete(`/api/graph/${name}`)
       .then(res => {
         dispatch({ type: DELETE_GRAPH_SUCCESS, payload: name });
       })
@@ -87,7 +90,7 @@ export const getGraphs = () => {
     axiosWithAuth()
       .get(`/api/graphs`)
       .then(res => {
-        console.log(res);
+        console.log(res.data);
         dispatch({ type: GET_GRAPHS_SUCCESS, payload: res.data });
       })
       .catch(err => {
@@ -97,20 +100,36 @@ export const getGraphs = () => {
   };
 };
 
+export const getGraph = name => {
+  return dispatch => {
+    dispatch({ type: GET_GRAPH_START });
+    axiosWithAuth()
+      .get(`/api/graphs/${name}`)
+      .then(res => {
+        console.log("res.data", res.data);
+        dispatch({ type: GET_GRAPH_SUCCESS, payload: res.data });
+      })
+      .catch(err => {
+        console.log("ERRORGRaphs", err);
+        dispatch({ type: GET_GRAPH_FAILURE, payload: err });
+      });
+  };
+};
 //* DATASET
 
-export const addDataSets = (name, graphData, history) => {
+export const addDataSets = (dataset, name, history) => {
+  console.log("datasetname", name, dataset);
   return dispatch => {
     dispatch({ type: ADD_DATASET_START });
     axiosWithAuth()
       .post(
-        `https://spider-back-end.herokuapp.com/api/graphs/${name}`,
-        graphData
+        `https://spider-back-end.herokuapp.com/api/graphs/${name}/dataset`,
+        dataset
       )
       .then(res => {
-        console.log("The response from posting a GRAPH is", res.data);
+        console.log("The response from posting a Dataset is", res.data);
         dispatch({ type: ADD_DATASET_SUCCESS, payload: res.data });
-        history.push(`/${name}`);
+        // history.push(`/${name}`);
       })
       .catch(err => {
         console.log(err);
