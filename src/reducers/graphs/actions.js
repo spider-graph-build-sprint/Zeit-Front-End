@@ -71,7 +71,7 @@ export const deleteGraph = name => {
   return dispatch => {
     dispatch({ type: DELETE_GRAPH_START });
     axiosWithAuth()
-      .delete(`/api/graphs/${name}`)
+      .delete(`/api/graph/${name}`)
       .then(res => {
         dispatch({ type: DELETE_GRAPH_SUCCESS, payload: name });
       })
