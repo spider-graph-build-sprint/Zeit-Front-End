@@ -41,6 +41,7 @@ const FormikLoginForm = withFormik({
   }),
   //You can use this to see the values
   handleSubmit(values, { props }) {
+    console.log("values", values);
     const name = values.name;
     const leg1 = values.leg1;
     const leg2 = values.leg2;

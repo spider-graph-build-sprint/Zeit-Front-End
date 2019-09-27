@@ -20,7 +20,10 @@ import {
   EDIT_GRAPH_SUCCESS,
   GET_GRAPHS_FAILURE,
   GET_GRAPHS_START,
-  GET_GRAPHS_SUCCESS
+  GET_GRAPHS_SUCCESS,
+  GET_GRAPH_FAILURE,
+  GET_GRAPH_START,
+  GET_GRAPH_SUCCESS
 } from "./types";
 
 export const addGraph = (graphData, history) => {
@@ -87,7 +90,7 @@ export const getGraphs = () => {
     axiosWithAuth()
       .get(`/api/graphs`)
       .then(res => {
-        console.log(res);
+        console.log(res.data);
         dispatch({ type: GET_GRAPHS_SUCCESS, payload: res.data });
       })
       .catch(err => {
@@ -97,6 +100,21 @@ export const getGraphs = () => {
   };
 };
 
+export const getGraph = name => {
+  return dispatch => {
+    dispatch({ type: GET_GRAPH_START });
+    axiosWithAuth()
+      .get(`/api/graphs/${name}`)
+      .then(res => {
+        console.log("res.data", res.data);
+        dispatch({ type: GET_GRAPH_SUCCESS, payload: res.data });
+      })
+      .catch(err => {
+        console.log("ERRORGRaphs", err);
+        dispatch({ type: GET_GRAPH_FAILURE, payload: err });
+      });
+  };
+};
 //* DATASET
 
 export const addDataSets = (name, graphData, history) => {

@@ -1,19 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Bar, Line, Polar, Radar } from "react-chartjs-2";
 import { connect } from "react-redux";
-import { deleteGraph } from "../reducers/graphs/actions";
-import DataSetEditor from "./DataSetEditor";
-import LegEditor from "./LegEditor";
+import { deleteGraph, getGraph } from "../reducers/graphs/actions";
+// import DataSetEditor from "./DataSetEditor";
+// import LegEditor from "./LegEditor";
 
 // const [chartData, setChartData] = useState({});
-const intiLabels = [
-  "Population",
-  "Income Level",
-  "Education Index",
-  "Housing Affordability",
-  "Prison Population",
-  "Normalized GDP"
-];
+const intiLabels = ["test", "test2", "test3"];
 
 var dynamicColors = function() {
   var r = Math.floor(Math.random() * 255);
@@ -25,14 +18,8 @@ var dynamicColors = function() {
 const intiDataset = [
   {
     label: "Boston",
-    data: [61, 18, 15, 10, 10, 90],
+    data: [61, 76, 35],
     // backgroundColor: "rgba(255, 99, 132, 0.6)"
-    backgroundColor: dynamicColors()
-  },
-  {
-    label: "San Diego",
-    data: [10, 18, 61, 15, 80, 95],
-    // backgroundColor: "rgba(54, 162, 235, 0.6)"
     backgroundColor: dynamicColors()
   }
 ];
@@ -57,6 +44,10 @@ function Graph(props) {
     datasets: [...dataSet]
   };
 
+  useEffect(() => {
+    props.getGraph(props.match.params.name);
+  }, []);
+
   // used to maintain link between input changes and state
   function handleChanges(e) {
     setState({
@@ -79,6 +70,8 @@ function Graph(props) {
   // Bar, Line, Radar, Polar, ;
   return (
     <div className="graphPage">
+      {console.log("props.name", props.name, props.legs, props.datasets)}
+
       <h2>Welcome to Spider Graphs R Us</h2>
       <button onClick={() => deleteGraph()}>Delete This Graph </button>
       <form onSubmit={handleSubmit}>
@@ -93,8 +86,8 @@ function Graph(props) {
 
       <Radar data={data} />
 
-      <LegEditor labels={labels} setLabels={setLabels} />
-      <DataSetEditor dataSet={dataSet} setDataSet={setDataSet} />
+      {/* <LegEditor labels={labels} setLabels={setLabels} /> */}
+      {/* <DataSetEditor dataSet={dataSet} setDataSet={setDataSet} /> */}
       <h2>Other viewing Options</h2>
 
       <div className="graphButtons">
@@ -115,14 +108,23 @@ function Graph(props) {
   );
 }
 const mapPropsToState = state => {
+  console.log(
+    "mapProps",
+    state.graph.name,
+    state.graph.legs,
+    state.graph.datasets
+  );
   return {
-    isAuth: state.user.isAuth
+    isAuth: state.user.isAuth,
+    name: state.graph.name,
+    legs: state.graph.legs,
+    datasets: state.graph.datasets
   };
 };
 
 export default connect(
   mapPropsToState,
-  { deleteGraph }
+  { getGraph, deleteGraph }
 )(Graph);
 
 // export default Graph;

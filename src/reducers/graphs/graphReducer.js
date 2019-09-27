@@ -1,4 +1,29 @@
-import { ADD_DATASET_FAILURE, ADD_DATASET_START, ADD_DATASET_SUCCESS, ADD_GRAPH_FAILURE, ADD_GRAPH_START, ADD_GRAPH_SUCCESS, DELETE_DATASET_FAILURE, DELETE_DATASET_START, DELETE_DATASET_SUCCESS, DELETE_GRAPH_FAILURE, DELETE_GRAPH_START, DELETE_GRAPH_SUCCESS, EDIT_DATASET_FAILURE, EDIT_DATASET_START, EDIT_DATASET_SUCCESS, EDIT_GRAPH_FAILURE, EDIT_GRAPH_START, EDIT_GRAPH_SUCCESS, GET_GRAPHS_FAILURE, GET_GRAPHS_START, GET_GRAPHS_SUCCESS } from "./types";
+import {
+  ADD_DATASET_FAILURE,
+  ADD_DATASET_START,
+  ADD_DATASET_SUCCESS,
+  ADD_GRAPH_FAILURE,
+  ADD_GRAPH_START,
+  ADD_GRAPH_SUCCESS,
+  DELETE_DATASET_FAILURE,
+  DELETE_DATASET_START,
+  DELETE_DATASET_SUCCESS,
+  DELETE_GRAPH_FAILURE,
+  DELETE_GRAPH_START,
+  DELETE_GRAPH_SUCCESS,
+  EDIT_DATASET_FAILURE,
+  EDIT_DATASET_START,
+  EDIT_DATASET_SUCCESS,
+  EDIT_GRAPH_FAILURE,
+  EDIT_GRAPH_START,
+  EDIT_GRAPH_SUCCESS,
+  GET_GRAPHS_FAILURE,
+  GET_GRAPHS_START,
+  GET_GRAPHS_SUCCESS,
+  GET_GRAPH_FAILURE,
+  GET_GRAPH_START,
+  GET_GRAPH_SUCCESS
+} from "./types";
 
 const initialState = {
   isLoading: false,
@@ -19,13 +44,12 @@ const reducers = (state = initialState, { type, payload }) => {
         isLoading: true
       };
     case ADD_GRAPH_SUCCESS:
+      console.log("reducer", payload);
       return {
         ...state,
         error: "",
         name: payload.name,
         legs: payload.legs,
-        title: payload.title,
-        points: payload.points,
         isLoading: false
       };
     case ADD_GRAPH_FAILURE:
@@ -75,6 +99,32 @@ const reducers = (state = initialState, { type, payload }) => {
       return {
         ...state,
         error: payload.data.error,
+        isLoading: false
+      };
+
+    //Get graph
+    case GET_GRAPH_START:
+      return {
+        ...state,
+        isLoading: true,
+        error: ""
+      };
+    case GET_GRAPH_SUCCESS:
+      console.log("Success", payload);
+      return {
+        ...state,
+        isLoading: false,
+        name: payload.name,
+        legs: payload.legs,
+        datasets: payload.datasets,
+        error: ""
+      };
+    case GET_GRAPH_FAILURE:
+      console.log("Failure", payload);
+
+      return {
+        ...state,
+        error: payload,
         isLoading: false
       };
 
