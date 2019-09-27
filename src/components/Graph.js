@@ -1,13 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Bar, Line, Polar, Radar } from "react-chartjs-2";
 import { connect } from "react-redux";
-import { deleteGraph, getGraph } from "../reducers/graphs/actions";
+import { deleteGraph } from "../reducers/graphs/actions";
+import DataSetForm from "./DataSetForm";
 import AddDataSet from "./AddDataSet";
 // import DataSetEditor from "./DataSetEditor";
 // import LegEditor from "./LegEditor";
 
 // const [data, setdata] = useState({});
 const intiLabels = ["test", "test2", "test3"];
+
+
+// const [chartData, setChartData] = useState({});
+// const intiLabels = [
+//   "Population",
+//   "Income Level",
+//   "Education Index",
+//   "Housing Affordability",
+//   "Prison Population",
+//   "Normalized GDP"
+// ];
 
 var dynamicColors = function() {
   var r = Math.floor(Math.random() * 255);
@@ -108,6 +120,7 @@ function Graph(props) {
       {/* <LegEditor labels={labels} setLabels={setLabels} /> */}
       {/* <DataSetEditor dataSet={dataSet} setDataSet={setDataSet} /> */}
       <AddDataSet name={props.name} />
+
       <h2>Other viewing Options</h2>
 
       <div className="graphButtons">
