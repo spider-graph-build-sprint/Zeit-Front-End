@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Bar, Line, Polar, Radar } from "react-chartjs-2";
 import { connect } from "react-redux";
-import { deleteGraph } from "../reducers/graphs/actions";
-import DataSetForm from "./DataSetForm";
+import { deleteGraph, getGraph } from "../reducers/graphs/actions";
+// import DataSetForm from "./DataSetForm";
 import AddDataSet from "./AddDataSet";
 // import DataSetEditor from "./DataSetEditor";
 // import LegEditor from "./LegEditor";
 
 // const [data, setdata] = useState({});
 const intiLabels = ["test", "test2", "test3"];
-
 
 // const [chartData, setChartData] = useState({});
 // const intiLabels = [
