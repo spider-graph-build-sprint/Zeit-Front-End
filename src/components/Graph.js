@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Bar, Line, Polar, Radar } from "react-chartjs-2";
+import { connect } from "react-redux";
+import { deleteGraph } from "../reducers/graphs/actions";
+import DataSetEditor from "./DataSetEditor";
 import LegEditor from "./LegEditor";
+import DataSetForm from "./DataSetForm";
 
 // const [chartData, setChartData] = useState({});
 const intiLabels = [
@@ -48,14 +52,6 @@ function Graph(props) {
 
   const [labels, setLabels] = useState(intiLabels);
 
-  // const [editing, setEditing] = useState(false);
-
-  // const [editedGraphData, setEditedGraphData] = useState({ label: "" });
-  // function handleChange(e) {
-  //   setEditedGraphData({ ...editedGraphData, [e.target.name]: e.target.value });
-  //   console.log("editedGraphData", editedGraphData);
-  // }
-
   // this is passed into the chart comonent
   const data = {
     labels: [...labels],
@@ -85,7 +81,7 @@ function Graph(props) {
   return (
     <div className="graphPage">
       <h2>Welcome to Spider Graphs R Us</h2>
-
+      <button onClick={() => deleteGraph()}>Delete This Graph </button>
       <form onSubmit={handleSubmit}>
         <input
           name="label"
@@ -99,6 +95,11 @@ function Graph(props) {
       <Radar data={data} />
 
       <LegEditor labels={labels} setLabels={setLabels} />
+<<<<<<< HEAD
+      <DataSetForm/>
+=======
+      <DataSetEditor dataSet={dataSet} setDataSet={setDataSet} />
+>>>>>>> 6155a0cc2ceee2ac628bca27f1ca8c7f62ad93db
       <h2>Other viewing Options</h2>
 
       <div className="graphButtons">
@@ -118,4 +119,15 @@ function Graph(props) {
     </div>
   );
 }
-export default Graph;
+const mapPropsToState = state => {
+  return {
+    isAuth: state.user.isAuth
+  };
+};
+
+export default connect(
+  mapPropsToState,
+  { deleteGraph }
+)(Graph);
+
+// export default Graph;
