@@ -6,8 +6,9 @@ import { addGraph } from "../reducers/graphs/actions";
 
 const AddGraph = ({ history, addGraph, errors, touched, status }) => {
   return (
-    <div className="addGraph-form">
-      <div className="addGraphFormTitle">welcome back</div>
+    <div className="add-graph-form">
+      <div className="add-graph-form-title">New Graph</div>
+
       <Form>
         <Field type="text" name="name" placeholder="Graph Name" />
         {touched.name && errors.name && <p className="error">{errors.name}</p>}
@@ -19,12 +20,12 @@ const AddGraph = ({ history, addGraph, errors, touched, status }) => {
         <Field type="text" name="leg3" placeholder="leg3" />
         {touched.leg3 && errors.leg3 && <p className="error">{errors.leg3}</p>}
 
-        <button type="submit">Add Graph</button>
+        <button type="submit">Submit</button>
       </Form>
     </div>
   );
 };
-const FormikLoginForm = withFormik({
+const AddGraphForm = withFormik({
   mapPropsToValues({ name, leg1, leg2, leg3 }) {
     return {
       name: name || "",
@@ -60,4 +61,4 @@ const mapPropsToState = state => {
 export default connect(
   mapPropsToState,
   { addGraph }
-)(FormikLoginForm);
+)(AddGraphForm);
