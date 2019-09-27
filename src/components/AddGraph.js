@@ -34,8 +34,8 @@ const AddGraph = ({ values, errors, touched, status }) => {
   }
 
   return (
-    <div className="animal-form">
-      <div className="loginFormTitle">welcome back</div>
+    <div className="add-graph-form">
+      <div className="add-graph-form-title">New Graph</div>
       <Form>
         <Field type="text" name="name" placeholder="Graph Name" />
         {touched.name && errors.name && <p className="error">{errors.name}</p>}
@@ -60,12 +60,12 @@ const AddGraph = ({ values, errors, touched, status }) => {
           <p className="error">{errors.points}</p>
         )}
 
-        <button onClick={handleSubmit}>Login</button>
+        <button onClick={handleSubmit}>Submit</button>
       </Form>
     </div>
   );
 };
-const FormikLoginForm = withFormik({
+const AddGraphForm = withFormik({
   mapPropsToValues({ name, legs, title, points }) {
     return {
       name: name || "",
@@ -100,4 +100,4 @@ const mapPropsToState = state => {
 export default connect(
   mapPropsToState,
   { addGraph }
-)(FormikLoginForm);
+)(AddGraphForm);

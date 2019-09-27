@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Bar, Line, Polar, Radar } from "react-chartjs-2";
 import LegEditor from "./LegEditor";
+import DataSetForm from "./DataSetForm";
 
 // const [chartData, setChartData] = useState({});
 const intiLabels = [
@@ -99,6 +100,7 @@ function Graph(props) {
       <Radar data={data} />
 
       <LegEditor labels={labels} setLabels={setLabels} />
+      <DataSetForm/>
       <h2>Other viewing Options</h2>
 
       <div className="graphButtons">

@@ -12,6 +12,9 @@ main {
   padding: 72px 0;
   text-align: center;
 }
+body {
+  background-color: rgba(0, 0, 0, 0.075);
+}
 h1 {
   font-size: 45px;
 }
@@ -50,18 +53,20 @@ code:after {
   justify-content: center;
 }
 
-.animal-form {
+.add-graph-form, .sign-up-form {
   width: 40%;
   margin: auto 0;
   padding: 32px;
   font-weight: bold;
-  background-color: transparent;
+  /* background-color: transparent; */
+  background-color: rgba(44, 122, 81, 0.075);
   /* box-shadow: 2px 2px 10px 10px rgba(0, 0, 0, 0.1); */
 
   border: 2px solid lightgrey;
+  margin: 5rem auto;
 }
 
-.loginFormTitle {
+.loginFormTitle, .add-graph-form-title {
   margin: 0 auto !important;
   text-align: center;
   font-size: 24px;

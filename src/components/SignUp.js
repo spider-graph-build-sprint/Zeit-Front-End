@@ -6,7 +6,7 @@ import { register } from "../reducers/auth/actions";
 
 const SignUp = ({ values, errors, touched, isSubmitting }) => {
   return (
-    <Form className="signUp">
+    <Form className="sign-up-form">
       <div>
         {touched.username && errors.username && <p>{errors.username}</p>}
         <Field type="username" name="username" placeholder="Enter username" />
